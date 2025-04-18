@@ -8,7 +8,7 @@ const TicketCard = () => {
       <div className={ticketCardStyles['ticket__card']} role="button" aria-label="Выбрать билет">
         <div className={ticketCardStyles['ticket__price']}>
           <p>13 400 Р</p>
-          <img src="/src/assets/icons/CardLogo.png" alt="Логотип авиакомпании перевозчика" />
+          <img src="/src/assets/CardLogo.png" alt="Логотип авиакомпании перевозчика" />
         </div>
         <div className={ticketCardStyles['ticket__segments']}>
           <div className={ticketCardStyles['ticket__segment']}>

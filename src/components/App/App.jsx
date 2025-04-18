@@ -9,7 +9,7 @@ import appStyles from './App.module.scss'
 const App = () => {
   return (
     <section className={appStyles.app}>
-      <img className={appStyles.app__logo} src="/src/assets/Logo.svg" alt="Логотип компании" />
+      <img className={appStyles.app__logo} src="/images/Logo.svg" alt="Логотип компании" />
       <div className={appStyles.app__container}>
         <Filters />
         <div className={appStyles.app__wrapper}>

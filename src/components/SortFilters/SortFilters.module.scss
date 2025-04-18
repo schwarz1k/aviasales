@@ -1,0 +1,7 @@
+.sort-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(138px, 1fr));
+}

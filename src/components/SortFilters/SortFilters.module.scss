@@ -5,3 +5,44 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(138px, 1fr));
 }
+
+.sort-list__btn {
+  background-color: #ffffff;
+  border: 1px solid #e4e4e4;
+  border-radius: 0 0 0 0;
+  width: 168px;
+  min-height: 50px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 167%;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #4a4a4a;
+  box-shadow: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #2196F3;
+    color: #ffffff;
+  }
+
+  &:active {
+    opacity: 0.6;
+  }
+
+  &--selected {
+    background-color: #2196F3;
+    color: #ffffff;
+    border: none;
+  }
+}
+
+li:first-child .sort-list__btn {
+  border-radius: 5px 0 0 5px;
+}
+
+li:last-child .sort-list__btn {
+  border-radius: 0 5px 5px 0;
+}

@@ -1,30 +1,49 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-import SortFiltersItem from '../SortFiltersItem/SortFiltersItem.jsx'
+import { selectActiveFilter, setCheap, setFast, setOptimal } from '../../redux/slices/sortFilterSlice.js'
 
 import sortFilterStyles from './SortFilters.module.scss'
 
 const SortFilters = () => {
+  const dispatch = useDispatch()
+  const activeFilter = useSelector(selectActiveFilter)
+
   return (
     <ul className={sortFilterStyles['sort-list']}>
-      <SortFiltersItem
-        id="1"
-        text="Самый дешевый"
-        isSelected={true}
-        onClick={() => console.log('Клик по кнопке')}
-      ></SortFiltersItem>
-      <SortFiltersItem
-        id="2"
-        text="Самый быстрый"
-        isSelected={false}
-        onClick={() => console.log('Клик по кнопке')}
-      ></SortFiltersItem>
-      <SortFiltersItem
-        id="3"
-        text="Оптимальный"
-        isSelected={false}
-        onClick={() => console.log('Клик по кнопке')}
-      ></SortFiltersItem>
+      <li>
+        <button
+          type="button"
+          onClick={() => dispatch(setCheap())}
+          className={`${sortFilterStyles['sort-list__btn']} ${
+            activeFilter === 'cheap' ? sortFilterStyles['sort-list__btn--selected'] : ''
+          }`}
+        >
+          Самый дешевый
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          onClick={() => dispatch(setFast())}
+          className={`${sortFilterStyles['sort-list__btn']} ${
+            activeFilter === 'fast' ? sortFilterStyles['sort-list__btn--selected'] : ''
+          }`}
+        >
+          Самый быстрый
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          onClick={() => dispatch(setOptimal())}
+          className={`${sortFilterStyles['sort-list__btn']} ${
+            activeFilter === 'optimal' ? sortFilterStyles['sort-list__btn--selected'] : ''
+          }`}
+        >
+          Оптимальный
+        </button>
+      </li>
     </ul>
   )
 }

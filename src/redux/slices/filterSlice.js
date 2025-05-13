@@ -1,55 +1,34 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  all: true,
-  nonStop: true,
-  oneStop: true,
-  twoStop: true,
-  threeStop: true,
-}
-
-const updateAllState = (state) => {
-  const allSelected = state.nonStop && state.oneStop && state.twoStop && state.threeStop
-  state.all = allSelected
+  selectedStops: [0, 1, 2, 3],
 }
 
 const filtersSlice = createSlice({
   name: 'filters',
   initialState,
   reducers: {
-    setAll: (state) => {
-      const newValue = !state.all
-      state.all = newValue
-      state.nonStop = newValue
-      state.oneStop = newValue
-      state.twoStop = newValue
-      state.threeStop = newValue
+    toggleAll: (state) => {
+      if (state.selectedStops.length === 4) {
+        state.selectedStops = []
+      } else {
+        state.selectedStops = [0, 1, 2, 3]
+      }
     },
-    setNonStop: (state) => {
-      state.nonStop = !state.nonStop
-      updateAllState(state)
-    },
-    setOneStop: (state) => {
-      state.oneStop = !state.oneStop
-      updateAllState(state)
-    },
-    setTwoStop: (state) => {
-      state.twoStop = !state.twoStop
-      updateAllState(state)
-    },
-    setThreeStop: (state) => {
-      state.threeStop = !state.threeStop
-      updateAllState(state)
+    toggleStop: (state, action) => {
+      const stop = action.payload
+      if (state.selectedStops.includes(stop)) {
+        state.selectedStops = state.selectedStops.filter((s) => s !== stop)
+      } else {
+        state.selectedStops.push(stop)
+      }
     },
   },
 })
 
-export const { setNonStop, setAll, setOneStop, setTwoStop, setThreeStop } = filtersSlice.actions
+export const { toggleAll, toggleStop } = filtersSlice.actions
 
-export const selectAll = (state) => state.filters.all
-export const selectNonStop = (state) => state.filters.nonStop
-export const selectOneStop = (state) => state.filters.oneStop
-export const selectTwoStop = (state) => state.filters.twoStop
-export const selectThreeStop = (state) => state.filters.threeStop
+export const selectSelectedStops = (state) => state.filters.selectedStops
+export const selectIsAllSelected = (state) => state.filters.selectedStops.length === 4
 
 export default filtersSlice.reducer

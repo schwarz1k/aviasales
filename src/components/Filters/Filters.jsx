@@ -1,47 +1,28 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import {
-  setAll,
-  setNonStop,
-  setOneStop,
-  setTwoStop,
-  setThreeStop,
-  selectAll,
-  selectNonStop,
-  selectOneStop,
-  selectTwoStop,
-  selectThreeStop,
-} from '../../redux/slices/filterSlice.js'
+import { toggleAll, toggleStop, selectSelectedStops, selectIsAllSelected } from '../../redux/slices/filterSlice.js'
 
 import filtersStyles from './Filters.module.scss'
 
 const Filters = () => {
   const dispatch = useDispatch()
-  const all = useSelector(selectAll)
-  const nonStops = useSelector(selectNonStop)
-  const oneStops = useSelector(selectOneStop)
-  const twoStops = useSelector(selectTwoStop)
-  const threeStops = useSelector(selectThreeStop)
+  const selectedStops = useSelector(selectSelectedStops)
+  const isAllSelected = useSelector(selectIsAllSelected)
 
   const handleAll = () => {
-    dispatch(setAll())
+    dispatch(toggleAll())
   }
 
-  const handleNonStop = () => {
-    dispatch(setNonStop())
+  const handleStop = (stop) => {
+    dispatch(toggleStop(stop))
   }
 
-  const handleOneStop = () => {
-    dispatch(setOneStop())
-  }
-
-  const handleTwoStop = () => {
-    dispatch(setTwoStop())
-  }
-
-  const handleThreeStop = () => {
-    dispatch(setThreeStop())
+  const stopLabels = {
+    0: 'Без пересадок',
+    1: '1 пересадка',
+    2: '2 пересадки',
+    3: '3 пересадки',
   }
 
   return (
@@ -52,52 +33,23 @@ const Filters = () => {
           <input
             key="1"
             type="checkbox"
-            checked={all}
+            checked={isAllSelected}
             onChange={handleAll}
             className={filtersStyles.filters__checkbox}
           />
           <span>Все</span>
         </label>
-        <label className={filtersStyles.filters__label}>
-          <input
-            key="2"
-            type="checkbox"
-            checked={nonStops}
-            onChange={handleNonStop}
-            className={filtersStyles.filters__checkbox}
-          />
-          <span>Без пересадок</span>
-        </label>
-        <label className={filtersStyles.filters__label}>
-          <input
-            key="3"
-            type="checkbox"
-            checked={oneStops}
-            onChange={handleOneStop}
-            className={filtersStyles.filters__checkbox}
-          />
-          <span>1 пересадка</span>
-        </label>
-        <label className={filtersStyles.filters__label}>
-          <input
-            key="4"
-            type="checkbox"
-            checked={twoStops}
-            onChange={handleTwoStop}
-            className={filtersStyles.filters__checkbox}
-          />
-          <span>2 пересадки</span>
-        </label>
-        <label className={filtersStyles.filters__label}>
-          <input
-            key="5"
-            type="checkbox"
-            checked={threeStops}
-            onChange={handleThreeStop}
-            className={filtersStyles.filters__checkbox}
-          />
-          <span>3 пересадки</span>
-        </label>
+        {[0, 1, 2, 3].map((stop) => (
+          <label key={stop + 2} className={filtersStyles.filters__label}>
+            <input
+              type="checkbox"
+              checked={selectedStops.includes(stop)}
+              onChange={() => handleStop(stop)}
+              className={filtersStyles.filters__checkbox}
+            />
+            <span>{stopLabels[stop]}</span>
+          </label>
+        ))}
       </div>
     </div>
   )
